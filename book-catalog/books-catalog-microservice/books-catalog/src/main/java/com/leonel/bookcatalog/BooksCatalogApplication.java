@@ -1,4 +1,4 @@
-package com.leonel.bookcatalog.books_catalog;
+package com.leonel.bookcatalog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

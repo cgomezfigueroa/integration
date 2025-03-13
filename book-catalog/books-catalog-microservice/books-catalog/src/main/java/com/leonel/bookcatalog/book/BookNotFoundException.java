@@ -1,4 +1,4 @@
-package com.leonel.book;
+package com.leonel.bookcatalog.book;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
