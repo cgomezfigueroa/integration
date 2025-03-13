@@ -7,6 +7,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ import jakarta.validation.Valid;
 @RestController
 public class BookResource {
 
+	@Autowired
 	private BookRepository repository;
 
 	public BookResource(BookRepository repository){
