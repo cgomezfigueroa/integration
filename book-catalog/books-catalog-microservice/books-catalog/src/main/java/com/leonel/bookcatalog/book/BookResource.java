@@ -23,8 +23,6 @@ import com.leonel.bookcatalog.Kafka.KafkaProducerService;
 
 import jakarta.validation.Valid;
 
-
-
 @RestController
 public class BookResource {
 
