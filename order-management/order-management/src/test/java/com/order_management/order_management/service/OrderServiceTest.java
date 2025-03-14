@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 
 import com.order_management.order_management.entity.Order;
 import com.order_management.order_management.exception.OrderException;
+import com.order_management.order_management.kafka.KafkaProducer;
 import com.order_management.order_management.repository.OrderRepository;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,9 @@ public class OrderServiceTest {
 
   @Mock
   private OrderRepository orderRepository;
+
+  @Mock
+  private KafkaProducer kafkaProducer;
 
   @InjectMocks
   private OrderService orderService;
@@ -51,36 +55,50 @@ public class OrderServiceTest {
 
     assertEquals(order, result);
     verify(orderRepository, times(1)).save(order);
+    verify(kafkaProducer, times(1)).sendMessage(anyString());
   }
 
   @Test
-  void testUpdateOrderStatus() {
+  void testUpdateOrder() {
     Order existingOrder = new Order();
     existingOrder.setId(1L);
+    existingOrder.setCustomerName("Old Customer");
+    existingOrder.setProduct("Old Product");
+    existingOrder.setQuantity(5);
     existingOrder.setStatus("Pending");
 
     Order updatedOrder = new Order();
+    updatedOrder.setCustomerName("New Customer");
+    updatedOrder.setProduct("New Product");
+    updatedOrder.setQuantity(10);
     updatedOrder.setStatus("Completed");
 
     when(orderRepository.findById(1L)).thenReturn(Optional.of(existingOrder));
     when(orderRepository.save(existingOrder)).thenReturn(existingOrder);
 
-    Order result = orderService.updateOrderStatus(1L, updatedOrder);
+    Order result = orderService.updateOrder(1L, updatedOrder);
 
+    assertEquals("New Customer", result.getCustomerName());
+    assertEquals("New Product", result.getProduct());
+    assertEquals(10, result.getQuantity());
     assertEquals("Completed", result.getStatus());
     verify(orderRepository, times(1)).findById(1L);
     verify(orderRepository, times(1)).save(existingOrder);
+    verify(kafkaProducer, times(1)).sendMessage(anyString());
   }
 
   @Test
-  void testUpdateOrderStatusNotFound() {
+  void testUpdateOrderNotFound() {
     Order updatedOrder = new Order();
+    updatedOrder.setCustomerName("New Customer");
+    updatedOrder.setProduct("New Product");
+    updatedOrder.setQuantity(10);
     updatedOrder.setStatus("Completed");
 
     when(orderRepository.findById(1L)).thenReturn(Optional.empty());
 
     assertThrows(OrderException.class, () ->
-      orderService.updateOrderStatus(1L, updatedOrder)
+      orderService.updateOrder(1L, updatedOrder)
     );
     verify(orderRepository, times(1)).findById(1L);
   }

@@ -48,20 +48,20 @@ public class OrderControllerTest {
   }
 
   @Test
-  void testUpdateOrderStatus() {
+  void testUpdateOrder() {
     Order order = new Order();
     order.setId(1L);
+    order.setCustomerName("Updated Customer Name");
+    order.setProduct("Updated Product");
+    order.setQuantity(10);
     order.setStatus("Completed");
 
-    when(orderService.updateOrderStatus(1L, order)).thenReturn(order);
+    when(orderService.updateOrder(1L, order)).thenReturn(order);
 
-    ResponseEntity<Order> response = orderController.updateOrderStatus(
-      1L,
-      order
-    );
+    ResponseEntity<Order> response = orderController.updateOrder(1L, order);
 
     assertEquals(HttpStatus.OK, response.getStatusCode());
     assertEquals(order, response.getBody());
-    verify(orderService, times(1)).updateOrderStatus(1L, order);
+    verify(orderService, times(1)).updateOrder(1L, order);
   }
 }
