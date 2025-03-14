@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
 // import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
@@ -23,14 +24,15 @@ public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     @NotNull
-    private Boolean status;
+    @AssertTrue
+    private Boolean isProcessed;
 
     private String paymentDate;
     private String paymentType;
 
-    private Integer orderId;
+    private Long orderId;
 
 }
