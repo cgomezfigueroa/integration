@@ -29,11 +29,11 @@ public class OrderController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<Order> updateOrderStatus(
+  public ResponseEntity<Order> updateOrder(
     @PathVariable Long id,
     @RequestBody Order updatedOrder
   ) {
-    Order order = orderService.updateOrderStatus(id, updatedOrder);
+    Order order = orderService.updateOrder(id, updatedOrder);
     return new ResponseEntity<>(order, HttpStatus.OK);
   }
 }
