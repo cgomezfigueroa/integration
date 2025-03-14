@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.leonel.bookcatalog.Kafka.KafkaProducerService;
+
 import jakarta.validation.Valid;
 
 
@@ -28,6 +30,9 @@ public class BookResource {
 
 	@Autowired
 	private BookRepository repository;
+
+	@Autowired
+    KafkaProducerService kafkaProducerService;
 
 	public BookResource(BookRepository repository){
 		this.repository = repository;
@@ -59,6 +64,8 @@ public class BookResource {
 				.path("/{id}")
 				.buildAndExpand(savedBook.getId())
 				.toUri();
+
+		kafkaProducerService.sendMessage(savedBook);
 		return ResponseEntity.created(location).build();
 	}
 	
@@ -76,6 +83,8 @@ public class BookResource {
 				.path("/{id}")
 				.buildAndExpand(savedBook.getId())
 				.toUri();
+				
+		kafkaProducerService.sendMessage(savedBook);
 		return ResponseEntity.created(location).build();
 	}
 }
