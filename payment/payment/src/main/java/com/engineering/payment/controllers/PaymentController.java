@@ -35,7 +35,7 @@ public class PaymentController {
     @PostMapping("")
     public Payment postPayment(@Valid @RequestBody Payment payment) {
 
-        Payment savedPayment = paymentService.createPayment(payment);
+        Payment savedPayment = paymentService.createUpdatePaymentOrder(payment);
         kafkaProducerService.sendMessage(savedPayment);
 
         return savedPayment;

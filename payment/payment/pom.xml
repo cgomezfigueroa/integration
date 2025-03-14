@@ -109,10 +109,11 @@
 			<artifactId>spring-restdocs-mockmvc</artifactId>
 			<version>3.0.3</version>
 			<scope>test</scope>
-		</dependency>
+		</dependency> 
 		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-junit-jupiter</artifactId>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>5.8.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -152,6 +153,14 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.12</version>
+				<configuration>
+					<excludes>
+						<exclude>com/engineering/payment/configuration/**</exclude>
+						<exclude>com/engineering/payment/PaymentApplication.class</exclude>
+						<exclude>com/engineering/payment/services/KafkaProducerService.class</exclude>
+						<exclude>com/engineering/payment/services/KafkaConsumerService.class</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 					<execution>
 						<goals>

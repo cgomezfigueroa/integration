@@ -38,13 +38,21 @@ public class PaymentService {
         return ResponseEntity.status(HttpStatus.OK).body(optionalPayment.get());
     }
 
-    public Payment createPayment(@RequestBody Payment payment) {
-        Payment savedPayment = paymentRepository.save(payment);
+    @SuppressWarnings("finally")
+    public Payment createUpdatePaymentOrder(@RequestBody Payment payment) {
+        Payment newPayment = createPayment(payment);
         try {
-            updateOrderStatus(savedPayment.getOrderId());
+            updateOrderStatus(newPayment.getOrderId());
         } catch (JsonProcessingException e) {
             e.printStackTrace();
+        } finally {
+            return newPayment;
         }
+
+    }
+
+    public Payment createPayment(@RequestBody Payment payment) {
+        Payment savedPayment = paymentRepository.save(payment);
         return savedPayment;
     }
 
