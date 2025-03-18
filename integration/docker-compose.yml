@@ -1,0 +1,15 @@
+services:
+  
+  kafka:
+    image: apache/kafka:latest
+    ports:
+      - "9092:9092"
+
+  springbootapp:
+    build: .
+    ports:
+      - "8080:8080"  # Mapea el puerto 8080 del contenedor al puerto 8080 de tu máquina local
+    volumes:
+      - ./target:/app  # Mapea el directorio 'target' de tu proyecto al contenedor
+    depends_on:
+      - kafka  # Asegura que Kafka esté levantado antes de iniciar tu aplicación
