@@ -9,6 +9,7 @@ import com.leonel.bookcatalog.book.Book;
 
 @Service
 public class KafkaProducerService {
+	
 	@Value("${kafka.topic}")
     private String topicName;
 
