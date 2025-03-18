@@ -41,8 +41,9 @@ eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIn0.g8mgaoLkX46bCr6BxaMbqMb6T83GN4I6e_t_jWU
 
 ## Endpoints exposed
 
-* ```POST /books``` Add a new book to the catalog.
-* ```GET /books``` Retrieve a list of available books.
-* ```GET /books/{bookId}``` Retrieve details of a specific book by book ID.
-* ```PUT /books/{bookId}``` Update details of a specific book by book ID.
-* ```POST /auth/login``` Retrieve JWT token used for authentication.
+* ```POST /api/books``` Add a new book to the catalog.
+* ```GET /api/books``` Retrieve a list of available books.
+* ```GET /api/books/{bookId}``` Retrieve details of a specific book by book ID.
+* ```PUT /api/books/{bookId}``` Update details of a specific book by book ID.
+* ```POST /api/auth/login``` Retrieve JWT token used for authentication.
+* ```test-topic``` Kafka topic written to.
